@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./home.scss";
 const petImage = "images/pet.svg";
 export default function Home() {
@@ -13,7 +14,9 @@ export default function Home() {
         </p>
       </div>
 
-      <button className="btn btn-primary">Next</button>
+      <Link className="btn btn-primary" to="/sign-in">
+        Next
+      </Link>
     </div>
   );
 }

@@ -29,12 +29,13 @@
     5px 5px 10px rgba(183, 183, 204, 0.25),
     10px 10px 20px rgba(170, 170, 204, 0.5), -10px -10px 20px #ffffff;
   border-radius: 32px;
-  height:44px;
+  // height:44px;
   padding: .5rem  2rem;
   display:flex;
   justify-content: center;
   align-items: center;
   border: none;
+  text-decoration: none;
 }
 .btn-primary {
   background: #57419D;

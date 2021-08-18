@@ -7,6 +7,7 @@ import {
 import React from "react";
 import Home from './pages/home/home';
 import SignIn from './pages/sign-in/sign-in';
+import SignUp from './pages/sign-up/sign-up';
 
 function App() {
   return (
@@ -14,8 +15,11 @@ function App() {
       {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
       <Switch>
-        <Route path="/sign-in">
+        <Route path="/sign-in" exact>
           <SignIn />
+        </Route>
+        <Route path="/sign-up" exact>
+          <SignUp />
         </Route>
         <Route path="/">
           <Home />

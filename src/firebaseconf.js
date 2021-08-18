@@ -1,4 +1,6 @@
-import firebase from 'firebase/app';
+import firebase from "firebase/app";
+
+import "firebase/auth";
 const firebaseConfig = {
     apiKey: "AIzaSyBX_mbQs9eOClmyd4SIHSj0MXUQ__KELNU",
     authDomain: "pet-seen-found.firebaseapp.com",

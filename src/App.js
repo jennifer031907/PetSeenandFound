@@ -8,6 +8,7 @@ import React from "react";
 import Home from './pages/home/home';
 import SignIn from './pages/sign-in/sign-in';
 import SignUp from './pages/sign-up/sign-up';
+import Peets from './pages/peets/peets';
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
         </Route>
         <Route path="/sign-up" exact>
           <SignUp />
+        </Route>
+        <Route path="/peets" exact>
+          <Peets />
         </Route>
         <Route path="/">
           <Home />

@@ -7,7 +7,11 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { auth } from "./../../firebaseconf";
+
 export default function SignIn() {
+  let history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const useStyles = makeStyles((theme) => ({
@@ -31,8 +35,12 @@ export default function SignIn() {
   }));
   const classes = useStyles();
   const onHandlerSignIn = () => {
-    console.log(email);
-    console.log(password);
+    try {
+      auth.signInWithEmailAndPassword(email, password);
+      history.push("/peets");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

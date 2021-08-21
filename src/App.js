@@ -8,7 +8,8 @@ import React from "react";
 import Home from './pages/home/home';
 import SignIn from './pages/sign-in/sign-in';
 import SignUp from './pages/sign-up/sign-up';
-import Peets from './pages/peets/peets';
+import Pets from './pages/pets/pets';
+import AddPet from './pages/pets/add-pet';
 
 function App() {
   return (
@@ -22,8 +23,11 @@ function App() {
         <Route path="/sign-up" exact>
           <SignUp />
         </Route>
-        <Route path="/peets" exact>
-          <Peets />
+        <Route path="/pets" exact>
+          <Pets />
+        </Route>
+        <Route path="/pets/add" exact>
+          <AddPet />
         </Route>
         <Route path="/">
           <Home />

@@ -1,12 +1,9 @@
 import React from "react";
-import PetCard from "../../components/pet-card";
+import PetCard from "../../components/petCard/pet-card";
 
 export default function Peets() {
   return (
     <div>
-      <PetCard></PetCard>
-      <PetCard></PetCard>
-      <PetCard></PetCard>
       <PetCard></PetCard>
     </div>
   );

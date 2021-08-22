@@ -5,6 +5,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import React, { useState } from "react";
+import { auth } from "../../firebaseconf";
 export default function AddPet() {
   const useStyles = makeStyles((theme) => ({
     paper: {
@@ -24,6 +25,14 @@ export default function AddPet() {
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
   const [description, setDescription] = useState("");
+  const onAddPet = () => {
+    console.log(name);
+    console.log(city);
+    console.log(description);
+  };
+
+  const user = auth.currentUser;
+  console.log(user);
   const classes = useStyles();
   return (
     <Container component="main" maxWidth="xs">
@@ -76,6 +85,7 @@ export default function AddPet() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={onAddPet}
           >
             Add
           </Button>

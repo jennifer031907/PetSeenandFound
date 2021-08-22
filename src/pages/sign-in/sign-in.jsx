@@ -21,10 +21,6 @@ export default function SignIn() {
       flexDirection: "column",
       alignItems: "center",
     },
-    avatar: {
-      margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main,
-    },
     form: {
       width: "100%",
       marginTop: theme.spacing(1),
@@ -37,7 +33,7 @@ export default function SignIn() {
   const onHandlerSignIn = () => {
     try {
       auth.signInWithEmailAndPassword(email, password);
-      history.push("/peets");
+      history.push("/pets");
     } catch (err) {
       console.log(err);
     }

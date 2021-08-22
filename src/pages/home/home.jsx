@@ -14,7 +14,7 @@ export default function Home() {
         </p>
       </div>
 
-      <Link className="btn btn-primary" to="/sign-in">
+      <Link className="btn btn-primary" to="/pets">
         Next
       </Link>
     </div>

@@ -1,9 +1,11 @@
 import { Button, makeStyles } from "@material-ui/core";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import PetCard from "../../components/petCard/pet-card";
-
+import { db } from "../../firebaseconf";
+import "./pets.scss";
 export default function Pets() {
+  const [pets, setPets] = useState([]);
   const history = useHistory();
   const useStyles = makeStyles((theme) => ({
     submit: {
@@ -14,6 +16,15 @@ export default function Pets() {
     history.push("/pets/add");
   };
   const classes = useStyles();
+  useEffect(() => {
+    db.collection("pets")
+      .get()
+      .then((petsQuery) => {
+        const petsFormat = petsQuery.docs.map((petDoc) => petDoc.data());
+        setPets(petsFormat);
+      });
+  }, []);
+
   return (
     <div>
       <Button
@@ -26,7 +37,11 @@ export default function Pets() {
       >
         Add pet
       </Button>
-      <PetCard></PetCard>
+      <div className="pets">
+        {pets.map((pet) => (
+          <PetCard pet={pet} key={pet.uid}></PetCard>
+        ))}
+      </div>
     </div>
   );
 }

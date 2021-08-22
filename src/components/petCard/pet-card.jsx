@@ -12,6 +12,7 @@ export default function PetCard({ pet }) {
           <span className="material-icons">location_on</span>
           <span className="label">{pet.city}</span>
         </p>
+        <p className="pet-card__description--description">{pet.contact}</p>
         <p className="pet-card__description--description">{pet.description}</p>
       </div>
     </div>

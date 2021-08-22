@@ -1,4 +1,4 @@
-import { Avatar, Grid, makeStyles } from "@material-ui/core";
+import { Avatar, CircularProgress, Grid, makeStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -30,11 +30,14 @@ export default function AddPet() {
   }));
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
+  const [contact, setContact] = useState("");
+  const [loading, setLoading] = useState(false);
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState(null);
   const onAddPet = async () => {
-    if (name && city && description && image) {
+    if (name && city && description && image && contact) {
+      setLoading(true);
       try {
         const uid = new Date().getTime().toString();
         const storageRef = storage.ref(uid + image.name);
@@ -43,20 +46,24 @@ export default function AddPet() {
         await db
           .collection("pets")
           .doc(uid)
-          .set({ uid, name, description, city, image: url });
+          .set({ uid, name, description, city, image: url, contact });
+        setLoading(false);
+
         history.push("/pets");
       } catch (err) {
         console.warn("Error add pet", err);
+        setLoading(false);
       }
     }
+  };
+  const onBack = () => {
+    history.push("/pets");
   };
   const onSetImage = ({ target }) => {
     if (target.files.length) {
       const file = target.files[0];
-      console.log(file);
       const reader = new FileReader();
       reader.onload = (e) => {
-        console.log(e);
         setImageUrl(e?.target.result);
       };
       reader.readAsDataURL(file);
@@ -65,9 +72,10 @@ export default function AddPet() {
     }
   };
   const classes = useStyles();
-  return (
+  return !loading ? (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      <img alt="pets" src={"/images/pets.jpg"} />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
           Add Pet
@@ -82,7 +90,6 @@ export default function AddPet() {
             Upload Photo
             <input type="file" hidden onChange={onSetImage} />
           </Button>
-
           {!!imageUrl ? (
             <Grid item xs={4} style={{ margin: "0 auto" }}>
               <Avatar
@@ -94,7 +101,6 @@ export default function AddPet() {
           ) : (
             ""
           )}
-
           <TextField
             variant="outlined"
             margin="normal"
@@ -102,7 +108,7 @@ export default function AddPet() {
             fullWidth
             id="name"
             type="text"
-            label="Name"
+            label="Animal name"
             name="name"
             onChange={(e) => setName(e.target.value)}
             autoComplete="name"
@@ -125,25 +131,65 @@ export default function AddPet() {
             margin="normal"
             required
             fullWidth
+            name="contact"
+            label="Contact phone number"
+            type="tel"
+            id="contact"
+            placeholder="Contact phone number"
+            autoComplete="contact"
+            onChange={(e) => setContact(e.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
             name="description"
             label="Description"
+            placeholder="Age, Weight, color, breed,missing, Gender(F M)"
             type="text"
             id="description"
             autoComplete="description"
             onChange={(e) => setDescription(e.target.value)}
           />
-          <Button
-            type="button"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={onAddPet}
-          >
-            Add
-          </Button>
+          <Grid container spacing={3}>
+            <Grid item xs={6}>
+              <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                color="secondary"
+                className={classes.submit}
+                onClick={onBack}
+              >
+                Cancel
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={onAddPet}
+              >
+                Add
+              </Button>
+            </Grid>
+          </Grid>
         </form>
       </div>
     </Container>
+  ) : (
+    <Grid
+      container
+      direction="row"
+      justifyContent="center"
+      alignItems="center"
+      style={{ height: "100vh" }}
+    >
+      <CircularProgress />
+    </Grid>
   );
 }

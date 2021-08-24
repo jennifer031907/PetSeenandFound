@@ -24,7 +24,10 @@ export default function Pets() {
         setPets(petsFormat);
       });
   }, []);
-
+  const removePet = (uid) => {
+    const petsFiltered = pets.filter((p) => p.uid !== uid);
+    setPets(petsFiltered);
+  };
   return (
     <div>
       <Button
@@ -39,7 +42,11 @@ export default function Pets() {
       </Button>
       <div className="pets">
         {pets.map((pet) => (
-          <PetCard pet={pet} key={pet.uid}></PetCard>
+          <PetCard
+            pet={pet}
+            key={pet.uid}
+            removePet={(pet) => removePet(pet)}
+          ></PetCard>
         ))}
       </div>
     </div>

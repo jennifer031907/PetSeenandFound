@@ -1,6 +1,11 @@
 import React from "react";
+import { db } from "../../firebaseconf";
 import "./pet-card.scss";
-export default function PetCard({ pet }) {
+export default function PetCard({ pet,removePet }) {
+  const deletePet = async () => {
+    await db.collection("pets").doc(pet.uid).delete();
+    removePet(pet.uid)
+  };
   return (
     <div className="pet-card">
       <div className="pet-card__picture">
@@ -13,7 +18,12 @@ export default function PetCard({ pet }) {
           <span className="label">{pet.city}</span>
         </p>
         <p className="pet-card__description--description">{pet.contact}</p>
-        <p className="pet-card__description--description">{pet.description}</p>
+        <p className="pet-card__description--description">
+          <span> {pet.description}</span>
+          <span className="material-icons remove" onClick={deletePet}>
+            delete
+          </span>
+        </p>
       </div>
     </div>
   );

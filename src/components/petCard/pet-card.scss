@@ -1,6 +1,7 @@
 @import '../../partials/variables';
 @import '../../partials/mixins';
 .pet-card {
+  position: relative;
   background-color: #f5f5fa;
   display: flex;
   align-items: center;
@@ -11,12 +12,14 @@
     border-radius: 16px;
 
   &__picture {
+    flex-shrink: 0;
     &__img {
       width: 150px;
       height: 150px;
     }
   }
   &__description {
+    padding-top: 1rem;
     &--name {
       @include text(20px,$gray-1,bold);
     }
@@ -32,6 +35,11 @@
     }
     &--description {
         @include text(14px,$gray-2,500);
+        .remove {
+          position: absolute;
+          top: 1rem;right: 1rem;
+          color:red;
+        }
     }
   }
 }
